@@ -6,6 +6,7 @@ export default {
     orders: '注文',
     finance: '財務',
     demandForecast: '需要予測',
+    restocking: '再発注',
     companyName: '触媒コンポーネンツ',
     subtitle: '在庫管理システム'
   },
@@ -106,12 +107,14 @@ export default {
     title: '注文',
     description: '顧客注文の表示と管理',
     allOrders: 'すべての注文',
+    submittedOrders: '送信済み注文',
     totalOrders: '総注文数',
     totalRevenue: '総収益',
     avgOrderValue: '平均注文額',
     onTimeDelivery: '定時配達',
     itemsCount: '{count}件',
     quantity: '数量',
+    leadTimeDays: '{days}日',
     table: {
       orderNumber: '注文番号',
       orderId: '注文ID',
@@ -125,7 +128,8 @@ export default {
       totalValue: '合計金額',
       status: 'ステータス',
       expectedDelivery: '予定配達日',
-      actualDelivery: '実際の配達日'
+      actualDelivery: '実際の配達日',
+      leadTime: 'リードタイム'
     }
   },
 
@@ -188,6 +192,33 @@ export default {
     }
   },
 
+  // Restocking
+  restocking: {
+    title: '再発注',
+    description: '予算を設定し、需要予測に基づいて推奨される再発注品目を注文します',
+    availableBudget: '利用可能な予算',
+    recommended: '再発注の推奨品目',
+    recommendedCount: '再発注の推奨品目（{count}件）',
+    noRecommendations: 'この予算内に収まる品目はありません。予算を増やすと推奨品目が表示されます。',
+    placeOrder: '注文する',
+    orderPlaced: '再発注が正常に送信されました。注文タブで確認できます。',
+    total: '合計',
+    ofBudget: '予算 {budget} のうち',
+    remaining: '残り',
+    leadTimeNote: 'すべての再発注は{days}日の配送リードタイムで出荷されます。',
+    units: '個',
+    table: {
+      sku: 'SKU',
+      itemName: '品目名',
+      trend: 'トレンド',
+      currentDemand: '現在の需要',
+      forecastedDemand: '予測需要',
+      restockQty: '再発注数量',
+      unitCost: '単価',
+      lineCost: '小計'
+    }
+  },
+
   // Filters
   filters: {
     timePeriod: '期間',
@@ -204,6 +235,7 @@ export default {
     shipped: '出荷済み',
     processing: '処理中',
     backordered: 'バックオーダー',
+    submitted: '送信済み',
     inStock: '在庫あり',
     lowStock: '在庫僅少',
     adequate: '適量'
