@@ -251,7 +251,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -259,9 +259,10 @@ export default {
 }
 
 .modal-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
   width: 90%;
   max-width: 700px;
   max-height: 85vh;
@@ -278,20 +279,21 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 2rem;
-  border-bottom: 2px solid #e2e8f0;
+  border-bottom: 2px solid var(--border);
 }
 
 .modal-title {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--text);
+  font-family: var(--font-mono);
   margin: 0;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 0.5rem;
   display: flex;
@@ -302,8 +304,8 @@ export default {
 }
 
 .close-button:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: var(--surface-2);
+  color: var(--text);
 }
 
 .modal-body {
@@ -314,7 +316,7 @@ export default {
 
 .modal-footer {
   padding: 1.5rem 2rem;
-  border-top: 2px solid #e2e8f0;
+  border-top: 2px solid var(--border);
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
@@ -322,22 +324,24 @@ export default {
 
 .btn-secondary {
   padding: 0.75rem 1.5rem;
-  background: #f1f5f9;
-  color: #475569;
-  border: none;
+  background: var(--surface-2);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-weight: 600;
+  font-family: var(--font-mono);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: #e2e8f0;
+  background: var(--border);
+  color: var(--text);
 }
 
 /* Task Form */
 .task-form {
-  background: #f8fafc;
+  background: var(--bg-deep);
   border-radius: 12px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
@@ -372,45 +376,51 @@ export default {
 label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #475569;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
 }
 
 .task-input,
 .task-select {
   padding: 0.75rem;
-  border: 2px solid #e2e8f0;
+  background: var(--surface-2);
+  border: 2px solid var(--border);
   border-radius: 8px;
   font-size: 0.95rem;
-  transition: border-color 0.2s ease;
-  font-family: inherit;
+  color: var(--text);
+  font-family: var(--font-mono);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .task-input:focus,
 .task-select:focus {
   outline: none;
-  border-color: #667eea;
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
 }
 
 .task-select {
   cursor: pointer;
-  background: white;
+  background: var(--surface-2);
 }
 
 .task-add-btn {
   padding: 0.75rem 1.75rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent), var(--highlight));
+  color: var(--bg-deep);
   border: none;
   border-radius: 8px;
   font-weight: 600;
+  font-family: var(--font-mono);
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
   height: fit-content;
 }
 
 .task-add-btn:hover:not(:disabled) {
   transform: translateY(-2px);
+  box-shadow: var(--glow-accent);
 }
 
 .task-add-btn:disabled {
@@ -420,16 +430,17 @@ label {
 
 .tasks-divider {
   height: 1px;
-  background: #e2e8f0;
+  background: var(--border);
   margin: 2rem 0;
 }
 
 .no-tasks {
   text-align: center;
   padding: 3rem;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 1.1rem;
   font-style: italic;
+  font-family: var(--font-sans);
 }
 
 .tasks-list {
@@ -439,28 +450,28 @@ label {
 }
 
 .task-item {
-  background: white;
-  border: 2px solid #e2e8f0;
+  background: var(--surface);
+  border: 2px solid var(--border);
   border-radius: 10px;
   padding: 1rem 1.25rem;
   transition: all 0.2s ease;
 }
 
 .task-item:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
 }
 
 .task-item.priority-high {
-  border-left: 4px solid #dc2626;
+  border-left: 4px solid var(--danger);
 }
 
 .task-item.priority-medium {
-  border-left: 4px solid #f59e0b;
+  border-left: 4px solid var(--warning);
 }
 
 .task-item.priority-low {
-  border-left: 4px solid #2563eb;
+  border-left: 4px solid var(--accent);
 }
 
 .task-item.completed {
@@ -486,7 +497,7 @@ label {
   width: 20px;
   height: 20px;
   cursor: pointer;
-  accent-color: #667eea;
+  accent-color: var(--accent);
   flex-shrink: 0;
 }
 
@@ -494,7 +505,8 @@ label {
   flex: 1;
   cursor: pointer;
   user-select: none;
-  color: #0f172a;
+  color: var(--text);
+  font-family: var(--font-mono);
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
@@ -502,13 +514,13 @@ label {
 
 .task-item.completed .task-title {
   text-decoration: line-through;
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .task-delete-btn {
   width: 28px;
   height: 28px;
-  background: #ef4444;
+  background: var(--danger);
   color: white;
   border: none;
   border-radius: 6px;
@@ -524,7 +536,7 @@ label {
 }
 
 .task-delete-btn:hover {
-  background: #dc2626;
+  filter: brightness(0.85);
   transform: scale(1.1);
 }
 
@@ -537,6 +549,7 @@ label {
 .priority-badge {
   font-size: 0.688rem;
   font-weight: 600;
+  font-family: var(--font-mono);
   text-transform: uppercase;
   padding: 0.25rem 0.625rem;
   border-radius: 4px;
@@ -544,18 +557,21 @@ label {
 }
 
 .priority-badge.high {
-  background: #fecaca;
-  color: #991b1b;
+  background: rgba(255, 85, 85, 0.14);
+  color: var(--danger);
+  border: 1px solid rgba(255, 85, 85, 0.32);
 }
 
 .priority-badge.medium {
-  background: #fed7aa;
-  color: #92400e;
+  background: rgba(255, 184, 108, 0.14);
+  color: var(--warning);
+  border: 1px solid rgba(255, 184, 108, 0.32);
 }
 
 .priority-badge.low {
-  background: #dbeafe;
-  color: #1e40af;
+  background: rgba(189, 147, 249, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(189, 147, 249, 0.32);
 }
 
 .task-due-date {
@@ -563,39 +579,45 @@ label {
   align-items: center;
   gap: 0.5rem;
   font-size: 0.813rem;
-  color: #64748b;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
 }
 
 .task-due-date svg {
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .status-badge {
   font-size: 0.75rem;
   font-weight: 600;
+  font-family: var(--font-mono);
   padding: 0.25rem 0.625rem;
   border-radius: 4px;
   margin-left: auto;
 }
 
 .status-badge.overdue {
-  background: #fecaca;
-  color: #991b1b;
+  background: rgba(255, 85, 85, 0.14);
+  color: var(--danger);
+  border: 1px solid rgba(255, 85, 85, 0.32);
 }
 
 .status-badge.urgent {
-  background: #fed7aa;
-  color: #92400e;
+  background: rgba(255, 184, 108, 0.14);
+  color: var(--warning);
+  border: 1px solid rgba(255, 184, 108, 0.32);
 }
 
 .status-badge.upcoming {
-  background: #dbeafe;
-  color: #1e40af;
+  background: rgba(139, 233, 253, 0.14);
+  color: var(--info);
+  border: 1px solid rgba(139, 233, 253, 0.32);
 }
 
 .status-badge.completed {
-  background: #d1fae5;
-  color: #065f46;
+  background: rgba(80, 250, 123, 0.14);
+  color: var(--success);
+  border: 1px solid rgba(80, 250, 123, 0.32);
 }
 
 /* Modal transitions */

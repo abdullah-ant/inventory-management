@@ -156,7 +156,7 @@ const close = () => {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -165,9 +165,10 @@ const close = () => {
 }
 
 .modal-container {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
   max-width: 600px;
   width: 100%;
   max-height: 90vh;
@@ -181,20 +182,21 @@ const close = () => {
   align-items: center;
   justify-content: space-between;
   padding: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border);
 }
 
 .modal-title {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
+  font-family: var(--font-mono);
   letter-spacing: -0.025em;
 }
 
 .close-button {
   background: none;
   border: none;
-  color: #64748b;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 0.5rem;
   display: flex;
@@ -205,8 +207,8 @@ const close = () => {
 }
 
 .close-button:hover {
-  background: #f1f5f9;
-  color: #0f172a;
+  background: var(--surface-2);
+  color: var(--text);
 }
 
 .modal-body {
@@ -226,13 +228,15 @@ const close = () => {
 }
 
 .summary-card.total {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent), var(--highlight));
+  color: var(--bg-deep);
+  border: 1px solid var(--border);
 }
 
 .summary-label {
   font-size: 0.875rem;
   font-weight: 600;
+  font-family: var(--font-mono);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   opacity: 0.9;
@@ -242,6 +246,7 @@ const close = () => {
 .summary-value {
   font-size: 2.25rem;
   font-weight: 700;
+  font-family: var(--font-mono);
 }
 
 .cost-breakdown {
@@ -256,24 +261,28 @@ const close = () => {
   border: 2px solid;
 }
 
+/* Procurement → cyan/link tint */
 .cost-item.procurement {
-  border-color: #93c5fd;
-  background: #eff6ff;
+  border-color: rgba(139, 233, 253, 0.32);
+  background: rgba(139, 233, 253, 0.08);
 }
 
+/* Operational → purple/accent tint */
 .cost-item.operational {
-  border-color: #c4b5fd;
-  background: #f5f3ff;
+  border-color: rgba(189, 147, 249, 0.32);
+  background: rgba(189, 147, 249, 0.08);
 }
 
+/* Labor → green/success tint */
 .cost-item.labor {
-  border-color: #86efac;
-  background: #f0fdf4;
+  border-color: rgba(80, 250, 123, 0.32);
+  background: rgba(80, 250, 123, 0.08);
 }
 
+/* Overhead → yellow tint */
 .cost-item.overhead {
-  border-color: #fcd34d;
-  background: #fffbeb;
+  border-color: rgba(241, 250, 140, 0.32);
+  background: rgba(241, 250, 140, 0.08);
 }
 
 .cost-header {
@@ -294,23 +303,23 @@ const close = () => {
 }
 
 .cost-item.procurement .cost-icon {
-  background: #3b82f6;
-  color: white;
+  background: var(--link);
+  color: var(--bg-deep);
 }
 
 .cost-item.operational .cost-icon {
-  background: #8b5cf6;
-  color: white;
+  background: var(--accent);
+  color: var(--bg-deep);
 }
 
 .cost-item.labor .cost-icon {
-  background: #10b981;
-  color: white;
+  background: var(--success);
+  color: var(--bg-deep);
 }
 
 .cost-item.overhead .cost-icon {
-  background: #f59e0b;
-  color: white;
+  background: var(--warning);
+  color: var(--bg-deep);
 }
 
 .cost-info {
@@ -319,7 +328,8 @@ const close = () => {
 
 .cost-name {
   font-weight: 600;
-  color: #0f172a;
+  font-family: var(--font-mono);
+  color: var(--text);
   font-size: 1rem;
   margin-bottom: 0.25rem;
 }
@@ -327,38 +337,42 @@ const close = () => {
 .cost-amount {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0f172a;
+  font-family: var(--font-mono);
+  color: var(--text);
 }
 
 .cost-percentage {
   font-size: 0.875rem;
-  color: #64748b;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
   font-weight: 500;
 }
 
 .modal-footer {
   padding: 1.5rem;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid var(--border);
   display: flex;
   justify-content: flex-end;
 }
 
 .btn-secondary {
   padding: 0.625rem 1.25rem;
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 8px;
   font-weight: 500;
   font-size: 0.875rem;
-  color: #334155;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
   cursor: pointer;
   transition: all 0.15s ease;
-  font-family: inherit;
 }
 
 .btn-secondary:hover {
-  background: #e2e8f0;
-  border-color: #cbd5e1;
+  background: var(--surface-2);
+  border-color: var(--accent);
+  color: var(--text);
+  box-shadow: var(--glow-accent);
 }
 
 /* Modal transition animations */
