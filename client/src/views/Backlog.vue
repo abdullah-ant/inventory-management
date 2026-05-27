@@ -32,8 +32,8 @@
           <h3 class="card-title">Backlog Items</h3>
         </div>
         <div v-if="backlogItems.length === 0" style="padding: 3rem; text-align: center;">
-          <p style="font-size: 1.125rem; color: #10b981; font-weight: 600;">
-            ✓ No backlog items - all orders can be fulfilled!
+          <p style="font-size: 1.125rem; color: var(--success); font-weight: 600; font-family: var(--font-mono);">
+            No backlog items - all orders can be fulfilled!
           </p>
         </div>
         <div v-else class="table-container">
@@ -63,7 +63,7 @@
                   </span>
                 </td>
                 <td>
-                  <span :style="{ color: item.days_delayed > 7 ? '#ef4444' : '#f59e0b' }">
+                  <span :style="{ color: item.days_delayed > 7 ? 'var(--danger)' : 'var(--warning)' }">
                     {{ item.days_delayed }} days
                   </span>
                 </td>
@@ -150,3 +150,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/* All structural styles (card, table, badge, stat-card, loading, error)
+   are handled by App.vue globals. Only component-unique overrides live here. */
+
+.backlog {
+  /* Layout container — no color overrides needed */
+}
+</style>

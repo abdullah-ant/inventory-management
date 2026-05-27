@@ -276,11 +276,12 @@ export default {
 
 .items-summary {
   cursor: pointer;
-  color: #3b82f6;
+  color: var(--link);
   font-weight: 500;
   list-style: none;
   user-select: none;
   display: inline-block;
+  font-family: var(--font-mono);
 }
 
 .items-summary::-webkit-details-marker {
@@ -300,7 +301,7 @@ export default {
 }
 
 .items-summary:hover {
-  color: #2563eb;
+  color: var(--accent);
   text-decoration: underline;
 }
 
@@ -310,10 +311,10 @@ export default {
   top: 100%;
   left: 0;
   margin-top: 0.5rem;
-  background: white;
-  border: 1px solid #e2e8f0;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   padding: 0.75rem;
   z-index: 10;
   min-width: 300px;
@@ -325,7 +326,7 @@ export default {
   flex-direction: column;
   gap: 0.25rem;
   padding: 0.5rem;
-  border-bottom: 1px solid #f1f5f9;
+  border-bottom: 1px solid var(--border);
 }
 
 .item-entry:last-child {
@@ -335,11 +336,13 @@ export default {
 .item-name {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #0f172a;
+  color: var(--text);
+  font-family: var(--font-mono);
 }
 
 .item-meta {
   font-size: 0.813rem;
-  color: #64748b;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
 }
 </style>

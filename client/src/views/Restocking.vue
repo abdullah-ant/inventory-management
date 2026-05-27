@@ -291,8 +291,9 @@ export default {
 }
 
 .page-header p {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.875rem;
+  font-family: var(--font-sans);
 }
 
 /* ── Success banner ── */
@@ -300,20 +301,21 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #d1fae5;
-  border: 1px solid #6ee7b7;
-  color: #065f46;
+  background: rgba(80, 250, 123, 0.12);
+  border: 1px solid var(--success);
+  color: var(--success);
   padding: 0.875rem 1.25rem;
   border-radius: 8px;
   margin-bottom: 1.25rem;
   font-weight: 500;
   font-size: 0.938rem;
+  font-family: var(--font-mono);
 }
 
 .banner-dismiss {
   background: transparent;
   border: none;
-  color: #065f46;
+  color: var(--success);
   cursor: pointer;
   font-size: 1rem;
   line-height: 1;
@@ -323,7 +325,7 @@ export default {
 }
 
 .banner-dismiss:hover {
-  background: rgba(6, 95, 70, 0.1);
+  background: rgba(80, 250, 123, 0.15);
 }
 
 /* ── Budget card ── */
@@ -346,16 +348,18 @@ export default {
 .budget-label {
   font-size: 0.875rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: var(--font-mono);
 }
 
 .budget-amount {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
   letter-spacing: -0.025em;
+  font-family: var(--font-mono);
 }
 
 /* ── Custom range slider ── */
@@ -363,7 +367,7 @@ export default {
   width: 100%;
   height: 6px;
   /* accent-color sets the thumb and fill in modern browsers */
-  accent-color: #667eea;
+  accent-color: var(--accent);
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
@@ -376,7 +380,8 @@ export default {
 .budget-slider::-webkit-slider-runnable-track {
   width: 100%;
   height: 6px;
-  background: #e2e8f0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 4px;
 }
 
@@ -387,16 +392,16 @@ export default {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #667eea;
-  border: 2px solid white;
-  box-shadow: 0 1px 4px rgba(102, 126, 234, 0.4);
+  background: var(--accent);
+  border: 2px solid var(--bg-deep);
+  box-shadow: 0 1px 4px rgba(189, 147, 249, 0.4);
   margin-top: -7px;
   cursor: pointer;
   transition: box-shadow 0.15s, transform 0.15s;
 }
 
 .budget-slider::-webkit-slider-thumb:hover {
-  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.6);
+  box-shadow: 0 2px 8px rgba(189, 147, 249, 0.6), var(--glow-accent);
   transform: scale(1.1);
 }
 
@@ -404,7 +409,8 @@ export default {
 .budget-slider::-moz-range-track {
   width: 100%;
   height: 6px;
-  background: #e2e8f0;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
   border-radius: 4px;
 }
 
@@ -413,9 +419,9 @@ export default {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: #667eea;
-  border: 2px solid white;
-  box-shadow: 0 1px 4px rgba(102, 126, 234, 0.4);
+  background: var(--accent);
+  border: 2px solid var(--bg-deep);
+  box-shadow: 0 1px 4px rgba(189, 147, 249, 0.4);
   cursor: pointer;
   transition: box-shadow 0.15s;
 }
@@ -424,16 +430,18 @@ export default {
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: #94a3b8;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
 }
 
 .lead-time-note {
   margin-top: 0.875rem;
   font-size: 0.813rem;
-  color: #64748b;
+  color: var(--text-muted);
   font-style: italic;
   padding-top: 0.875rem;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-sans);
 }
 
 /* ── Budget summary row (modelled on BacklogDetailModal .summary-card) ── */
@@ -451,13 +459,13 @@ export default {
 }
 
 .budget-used {
-  border-color: #c7d2fe;
-  background: #eef2ff;
+  border-color: rgba(189, 147, 249, 0.35);
+  background: rgba(189, 147, 249, 0.08);
 }
 
 .budget-remaining {
-  border-color: #a7f3d0;
-  background: #ecfdf5;
+  border-color: rgba(80, 250, 123, 0.32);
+  background: rgba(80, 250, 123, 0.08);
 }
 
 .summary-label {
@@ -465,29 +473,32 @@ export default {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #64748b;
+  color: var(--text-muted);
   margin-bottom: 0.5rem;
+  font-family: var(--font-mono);
 }
 
 .summary-value {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
   letter-spacing: -0.025em;
+  font-family: var(--font-mono);
 }
 
 .budget-used .summary-value {
-  color: #4338ca;
+  color: var(--accent);
 }
 
 .budget-remaining .summary-value {
-  color: #059669;
+  color: var(--success);
 }
 
 .summary-sub {
   font-size: 0.813rem;
-  color: #64748b;
+  color: var(--text-muted);
   margin-top: 0.375rem;
+  font-family: var(--font-mono);
 }
 
 /* ── Recommendations card ── */
@@ -497,22 +508,24 @@ export default {
   align-items: center;
 }
 
-/* Place Order button — matches .task-add-btn in TasksModal.vue */
+/* Place Order button — gradient uses accent (purple) → highlight (pink) */
 .place-order-btn {
   padding: 0.75rem 1.75rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--accent), var(--highlight));
+  color: var(--bg-deep);
   border: none;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.938rem;
   cursor: pointer;
-  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, box-shadow 0.2s ease;
   white-space: nowrap;
+  font-family: var(--font-mono);
 }
 
 .place-order-btn:hover:not(:disabled) {
   transform: translateY(-2px);
+  box-shadow: var(--glow-accent);
 }
 
 .place-order-btn:disabled {
@@ -523,9 +536,10 @@ export default {
 .no-recommendations {
   padding: 2.5rem;
   text-align: center;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.938rem;
   font-style: italic;
+  font-family: var(--font-mono);
 }
 
 /* ── Table columns ── */

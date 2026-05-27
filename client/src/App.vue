@@ -2,9 +2,16 @@
   <div class="app">
     <header class="top-nav">
       <div class="nav-container">
+        <!-- Terminal window controls -->
+        <div class="window-controls" aria-hidden="true">
+          <span class="window-dot close"></span>
+          <span class="window-dot min"></span>
+          <span class="window-dot max"></span>
+        </div>
         <div class="logo">
           <h1>{{ t('nav.companyName') }}</h1>
           <span class="subtitle">{{ t('nav.subtitle') }}</span>
+          <span class="caret" aria-hidden="true">▮</span>
         </div>
         <nav class="nav-tabs">
           <router-link to="/" :class="{ active: $route.path === '/' }">
@@ -26,7 +33,7 @@
             {{ t('nav.restocking') }}
           </router-link>
           <router-link to="/reports" :class="{ active: $route.path === '/reports' }">
-            Reports
+            {{ t('nav.reports') }}
           </router-link>
         </nav>
         <LanguageSwitcher />
@@ -165,30 +172,106 @@ export default {
 </script>
 
 <style>
+/* ============================================================
+   Dracula "Modern Terminal" Theme — CSS Variables
+   Single source of truth for all components
+   ============================================================ */
+:root {
+  /* Dracula base palette */
+  --drac-bg:        #282a36;
+  --drac-bg-deep:   #21222c;
+  --drac-surface:   #2d2f3d;
+  --drac-surface-2: #343746;
+  --drac-line:      #44475a;
+  --drac-fg:        #f8f8f2;
+  --drac-muted:     #6272a4;
+  --drac-cyan:      #8be9fd;
+  --drac-green:     #50fa7b;
+  --drac-orange:    #ffb86c;
+  --drac-pink:      #ff79c6;
+  --drac-purple:    #bd93f9;
+  --drac-red:       #ff5555;
+  --drac-yellow:    #f1fa8c;
+
+  /* Semantic roles — prefer these in components */
+  --bg:          var(--drac-bg);
+  --bg-deep:     var(--drac-bg-deep);
+  --surface:     var(--drac-surface);
+  --surface-2:   var(--drac-surface-2);
+  --border:      var(--drac-line);
+  --text:        var(--drac-fg);
+  --text-muted:  var(--drac-muted);
+  --accent:      var(--drac-purple);
+  --link:        var(--drac-cyan);
+  --success:     var(--drac-green);
+  --warning:     var(--drac-orange);
+  --danger:      var(--drac-red);
+  --info:        var(--drac-cyan);
+  --highlight:   var(--drac-pink);
+
+  /* Fonts — mono for data/UI, sans for prose */
+  --font-mono: 'JetBrains Mono','Fira Code','SF Mono','Cascadia Code',ui-monospace,Menlo,Consolas,monospace;
+  --font-sans: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+
+  /* Effects */
+  --radius: 8px;
+  --shadow: 0 2px 10px rgba(0,0,0,0.45);
+  --glow-accent: 0 0 0 1px rgba(189,147,249,0.35), 0 0 14px rgba(189,147,249,0.22);
+  --glow-cyan:   0 0 0 1px rgba(139,233,253,0.35), 0 0 14px rgba(139,233,253,0.22);
+}
+
+/* ============================================================
+   Reset
+   ============================================================ */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ============================================================
+   Body — mono base for terminal feel; prose opts into sans
+   ============================================================ */
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  background: #f8fafc;
-  color: #1e293b;
+  font-family: var(--font-mono);
+  background: var(--bg);
+  color: var(--text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ============================================================
+   Selection
+   ============================================================ */
+::selection {
+  background: rgba(189,147,249,0.35);
+  color: var(--text);
+}
+
+/* ============================================================
+   Custom scrollbars
+   ============================================================ */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--bg-deep); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 5px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ============================================================
+   App shell
+   ============================================================ */
 .app {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
+/* ============================================================
+   Top nav — dark terminal chrome
+   ============================================================ */
 .top-nav {
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+  background: var(--bg-deep);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
   position: sticky;
   top: 0;
   z-index: 100;
@@ -212,6 +295,31 @@ body {
   margin-right: 1rem;
 }
 
+/* ============================================================
+   Terminal window-control dots
+   ============================================================ */
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.window-dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.window-dot.close { background: #ff5555; }
+.window-dot.min   { background: #f1fa8c; }
+.window-dot.max   { background: #50fa7b; }
+
+/* ============================================================
+   Logo / brand
+   ============================================================ */
 .logo {
   display: flex;
   align-items: baseline;
@@ -221,18 +329,39 @@ body {
 .logo h1 {
   font-size: 1.375rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
   letter-spacing: -0.025em;
+  font-family: var(--font-mono);
 }
 
+/* Shell-path styled subtitle */
 .subtitle {
   font-size: 0.813rem;
-  color: #64748b;
+  color: var(--text-muted);
   font-weight: 400;
   padding-left: 0.75rem;
-  border-left: 1px solid #e2e8f0;
+  border-left: 1px solid var(--border);
+  font-family: var(--font-mono);
 }
 
+/* Blinking caret after the brand */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.caret {
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  animation: blink 1s step-end infinite;
+  margin-left: 0.125rem;
+  line-height: 1;
+}
+
+/* ============================================================
+   Nav tabs
+   ============================================================ */
 .nav-tabs {
   display: flex;
   gap: 0.25rem;
@@ -240,25 +369,33 @@ body {
 
 .nav-tabs a {
   padding: 0.625rem 1.25rem;
-  color: #64748b;
+  color: var(--text-muted);
   text-decoration: none;
   font-weight: 500;
-  font-size: 0.938rem;
+  font-size: 0.875rem;
   border-radius: 6px;
   transition: all 0.2s ease;
   position: relative;
+  font-family: var(--font-mono);
 }
 
 .nav-tabs a:hover {
-  color: #0f172a;
-  background: #f1f5f9;
+  color: var(--text);
+  background: var(--surface-2);
 }
 
 .nav-tabs a.active {
-  color: #2563eb;
-  background: #eff6ff;
+  color: var(--accent);
+  background: rgba(189,147,249,0.10);
 }
 
+/* ">" prompt prefix on active tab via CSS — no template changes needed */
+.nav-tabs a.active::before {
+  content: '> ';
+  color: var(--accent);
+}
+
+/* Glowing underline on active tab */
 .nav-tabs a.active::after {
   content: '';
   position: absolute;
@@ -266,9 +403,14 @@ body {
   left: 0;
   right: 0;
   height: 2px;
-  background: #2563eb;
+  background: var(--accent);
+  box-shadow: var(--glow-accent);
+  border-radius: 2px;
 }
 
+/* ============================================================
+   Main content
+   ============================================================ */
 .main-content {
   flex: 1;
   max-width: 1600px;
@@ -277,6 +419,9 @@ body {
   padding: 1.5rem 2rem;
 }
 
+/* ============================================================
+   Page header
+   ============================================================ */
 .page-header {
   margin-bottom: 1.5rem;
 }
@@ -284,16 +429,22 @@ body {
 .page-header h2 {
   font-size: 1.875rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
   margin-bottom: 0.375rem;
   letter-spacing: -0.025em;
+  font-family: var(--font-mono);
 }
 
+/* Prose description — uses sans for readability */
 .page-header p {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.938rem;
+  font-family: var(--font-sans);
 }
 
+/* ============================================================
+   Stats grid & cards
+   ============================================================ */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -302,55 +453,49 @@ body {
 }
 
 .stat-card {
-  background: white;
+  background: var(--surface);
   padding: 1.25rem;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   transition: all 0.2s ease;
 }
 
 .stat-card:hover {
-  border-color: #cbd5e1;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-color: var(--accent);
+  box-shadow: var(--glow-accent);
 }
 
 .stat-label {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.875rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   margin-bottom: 0.625rem;
+  font-family: var(--font-mono);
 }
 
 .stat-value {
   font-size: 2.25rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
   letter-spacing: -0.025em;
+  font-family: var(--font-mono);
 }
 
-.stat-card.warning .stat-value {
-  color: #ea580c;
-}
+.stat-card.warning .stat-value { color: var(--warning); }
+.stat-card.success .stat-value { color: var(--success); }
+.stat-card.danger  .stat-value { color: var(--danger);  }
+.stat-card.info    .stat-value { color: var(--info);    }
 
-.stat-card.success .stat-value {
-  color: #059669;
-}
-
-.stat-card.danger .stat-value {
-  color: #dc2626;
-}
-
-.stat-card.info .stat-value {
-  color: #2563eb;
-}
-
+/* ============================================================
+   Generic card
+   ============================================================ */
 .card {
-  background: white;
+  background: var(--surface);
   border-radius: 10px;
   padding: 1.25rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--border);
   margin-bottom: 1.25rem;
 }
 
@@ -360,16 +505,20 @@ body {
   align-items: center;
   margin-bottom: 1rem;
   padding-bottom: 0.875rem;
-  border-bottom: 1px solid #e2e8f0;
+  border-bottom: 1px solid var(--border);
 }
 
 .card-title {
   font-size: 1.125rem;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--text);
   letter-spacing: -0.025em;
+  font-family: var(--font-mono);
 }
 
+/* ============================================================
+   Tables
+   ============================================================ */
 .table-container {
   overflow-x: auto;
 }
@@ -380,26 +529,28 @@ table {
 }
 
 thead {
-  background: #f8fafc;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--bg-deep);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
 }
 
 th {
   text-align: left;
   padding: 0.5rem 0.75rem;
   font-weight: 600;
-  color: #475569;
+  color: var(--text-muted);
   font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  font-family: var(--font-mono);
 }
 
 td {
   padding: 0.5rem 0.75rem;
-  border-top: 1px solid #f1f5f9;
-  color: #334155;
+  border-top: 1px solid var(--border);
+  color: var(--text);
   font-size: 0.875rem;
+  font-family: var(--font-mono);
 }
 
 tbody tr {
@@ -407,9 +558,12 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: #f8fafc;
+  background: var(--surface-2);
 }
 
+/* ============================================================
+   Badges — dark translucent tint style
+   ============================================================ */
 .badge {
   display: inline-block;
   padding: 0.313rem 0.75rem;
@@ -418,72 +572,93 @@ tbody tr:hover {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.025em;
+  font-family: var(--font-mono);
+  border: 1px solid transparent;
 }
 
 .badge.success {
-  background: #d1fae5;
-  color: #065f46;
+  background: rgba(80,250,123,0.14);
+  color: var(--success);
+  border-color: rgba(80,250,123,0.32);
 }
 
 .badge.warning {
-  background: #fed7aa;
-  color: #92400e;
+  background: rgba(255,184,108,0.14);
+  color: var(--warning);
+  border-color: rgba(255,184,108,0.32);
 }
 
 .badge.danger {
-  background: #fecaca;
-  color: #991b1b;
+  background: rgba(255,85,85,0.14);
+  color: var(--danger);
+  border-color: rgba(255,85,85,0.32);
 }
 
-.badge.info {
-  background: #dbeafe;
-  color: #1e40af;
+/* shipped maps to info/cyan */
+.badge.info,
+.badge.shipped {
+  background: rgba(139,233,253,0.14);
+  color: var(--info);
+  border-color: rgba(139,233,253,0.32);
 }
 
+/* Trend badges */
 .badge.increasing {
-  background: #d1fae5;
-  color: #065f46;
+  background: rgba(80,250,123,0.14);
+  color: var(--success);
+  border-color: rgba(80,250,123,0.32);
 }
 
 .badge.decreasing {
-  background: #fecaca;
-  color: #991b1b;
+  background: rgba(255,85,85,0.14);
+  color: var(--danger);
+  border-color: rgba(255,85,85,0.32);
 }
 
 .badge.stable {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: rgba(139,233,253,0.14);
+  color: var(--info);
+  border-color: rgba(139,233,253,0.32);
 }
 
+/* Priority badges */
 .badge.high {
-  background: #fecaca;
-  color: #991b1b;
+  background: rgba(255,85,85,0.14);
+  color: var(--danger);
+  border-color: rgba(255,85,85,0.32);
 }
 
 .badge.medium {
-  background: #fed7aa;
-  color: #92400e;
+  background: rgba(255,184,108,0.14);
+  color: var(--warning);
+  border-color: rgba(255,184,108,0.32);
 }
 
 .badge.low {
-  background: #dbeafe;
-  color: #1e40af;
+  background: rgba(80,250,123,0.14);
+  color: var(--success);
+  border-color: rgba(80,250,123,0.32);
 }
 
+/* ============================================================
+   Loading / error states
+   ============================================================ */
 .loading {
   text-align: center;
   padding: 3rem;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.938rem;
+  font-family: var(--font-mono);
 }
 
 .error {
-  background: #fef2f2;
-  border: 1px solid #fecaca;
-  color: #991b1b;
+  background: rgba(255,85,85,0.10);
+  border: 1px solid rgba(255,85,85,0.35);
+  color: var(--danger);
   padding: 1rem;
   border-radius: 8px;
   margin: 1rem 0;
   font-size: 0.938rem;
+  font-family: var(--font-mono);
 }
 </style>
